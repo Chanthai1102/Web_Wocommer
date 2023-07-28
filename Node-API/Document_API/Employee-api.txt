@@ -1,5 +1,42 @@
 Server : https//localhost:8081/api/
 Employee :
        Getlist : {
-                
+                Url : Server + "employee"
+                Method : Get
+                Parameter : No
+       }
+
+       GetOne : {
+                Url : Server + "employee/:id
+                Method : Get
+                Parameter : No
+       }
+       Create : {
+                Url : Server + "employee"
+                Method : Post
+                Parameter Json : {
+                    fistname : ""
+                    lastname : ""
+                    tel      : ""
+                    email    : ""
+                    base_salar : ""
+                    address  : ""
+                    province : ""
+                    country  : ""
+                }
+       }
+       update : {
+                Url : Server  + "employee"
+                Method : Put
+                Parameter Json : {
+                    employee_id : ""
+                    firstname  : ""
+                    lastname   : ""
+                    tel        : ""
+                    email      : ""
+                    base_salary : ""
+                    address    : ""
+                    province   : ""
+                    country    : ""
+                }
        }
