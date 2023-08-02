@@ -1,10 +1,21 @@
-import { Button } from "@material-tailwind/react";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+
+import LayoutDashboard from "./component/layout/LayoutDashboard"
 
 function App() {
   return (
-    <div className="App">
-      <Button>Button</Button>
-    </div>
+      <BrowserRouter>
+          <Routes>
+            {/*Website-client*/}
+              <Route>
+                  <Route />
+              </Route>
+              {/*Back-End*/}
+            <Route path="/dashboard" element={<LayoutDashboard/>}>
+              <Route />
+            </Route>
+          </Routes>
+      </BrowserRouter>
   );
 }
 
