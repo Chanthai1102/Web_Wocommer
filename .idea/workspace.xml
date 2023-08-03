@@ -22,7 +22,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Node-API/Document_API/Employee-api.txt" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/web-client/package.json" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboard.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -83,7 +83,7 @@
       <workItem from="1691038872185" duration="15000" />
       <workItem from="1691040187197" duration="531000" />
       <workItem from="1691040735268" duration="53000" />
-      <workItem from="1691041119193" duration="1101000" />
+      <workItem from="1691041119193" duration="1382000" />
     </task>
     <servers />
   </component>
