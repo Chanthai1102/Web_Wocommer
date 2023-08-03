@@ -1,9 +1,16 @@
+import {BrowserRouter, Routes, Router, Route} from "react-router-dom";
+
+
 import {LayoutDashboard} from "./component/layout/LayoutDashboard"
 function App() {
   return (
-    <div className="App">
-      <LayoutDashboard/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/dashboard" element={<LayoutDashboard/>}>
+          <Route />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
