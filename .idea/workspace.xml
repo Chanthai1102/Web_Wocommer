@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="caec8c15-7ce1-4386-b46d-1ded5dd14ebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-client/public/asset/photo/logo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/web-client/src/asset/photo/logo.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/web-client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-client/src/PageDashboard/CategoryPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-client/src/PageDashboard/CategoryPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboardMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboardMain.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +24,7 @@
     <setting file="file://$PROJECT_DIR$/Node-API/Document_API/Employee-api.txt" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/web-client/src/App.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboard.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboardMain.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -93,6 +96,8 @@
       <workItem from="1691046027699" duration="531000" />
       <workItem from="1691053885496" duration="1041000" />
       <workItem from="1691072180022" duration="7547000" />
+      <workItem from="1691118334937" duration="1217000" />
+      <workItem from="1691201640747" duration="3800000" />
     </task>
     <servers />
   </component>
