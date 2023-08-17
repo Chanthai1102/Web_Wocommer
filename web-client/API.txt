@@ -1,0 +1,22 @@
+const [list,setList] = useState()
+
+    useEffect(()=>{
+        Getlist();
+    },[])
+
+
+    const server = "http://localhost:8081/api/"
+    const Getlist = ()=>{
+        axios ({
+            url: server+"category",
+            method: "get",
+            data: {
+
+            }
+        }).then(res=>{
+            var data = res.data
+            setList(data.list)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }

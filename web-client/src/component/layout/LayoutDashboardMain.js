@@ -1,27 +1,38 @@
 import React from 'react';
-import logo from "../../asset/photo/logo.jpg";
+import {Outlet} from "react-router-dom";
+import logo from "../../asset/photo/logo.jpg"
 import {
-    Accordion,
-    AccordionBody,
-    AccordionHeader, Card, Chip,
+    Card,
+    Typography,
     List,
     ListItem,
-    ListItemPrefix, ListItemSuffix,
-    Typography
+    ListItemPrefix,
+    ListItemSuffix,
+    Chip,
+    Accordion,
+    AccordionHeader,
+    AccordionBody,
 } from "@material-tailwind/react";
-import {ChevronDownIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
 import {
-    Cog6ToothIcon,
-    InboxIcon, PowerIcon,
     PresentationChartBarIcon,
     ShoppingBagIcon,
-    UserCircleIcon
+    UserCircleIcon,
+    Cog6ToothIcon,
+    InboxIcon,
+    PowerIcon,
 } from "@heroicons/react/24/solid";
-import {Outlet} from "react-router-dom";
+import {
+    ChevronRightIcon,
+    ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 const LayoutDashboardMain = () => {
+    const [open, setOpen] = React.useState(0);
+    const handleOpen = (value) => {
+        setOpen(open === value ? 0 : value);
+    };
     return(
-        <div className="flex w-full h-full px-3 py-2">
-            <Card className="h-[calc(100vh)] max-w-[320px]  p-4 shadow-xl shadow-blue-gray-200 ">
+        <div className="flex w-full h-[calc(100vh)] px-3 py-2 bg-blue-gray-300">
+            <Card className="h-full w-full max-w-[20rem] p-4">
                 <div className="mb-2 flex items-center gap-4 p-4">
                     <img src={logo} alt="brand" className="h-8 w-8" />
                     <Typography variant="h5" color="blue-gray">
@@ -137,7 +148,7 @@ const LayoutDashboardMain = () => {
                     </ListItem>
                 </List>
             </Card>
-            <div className="h-full w-full pl-3 pt-8">
+            <div className="h-full w-full pl-3">
                 <Outlet/>
             </div>
         </div>

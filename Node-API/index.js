@@ -1,9 +1,14 @@
 const express = require('express')
 const axios = require("axios");
 const app = express()
+const cors = require("cors")
 app.use(express.json())
 
 const db = require("./src/Util/db")
+
+app.use(cors({
+    origin: "*"
+}))
 
 app.get("/", (req,res)=>{
     res.json({

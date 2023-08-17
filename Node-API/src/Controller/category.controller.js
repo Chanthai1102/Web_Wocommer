@@ -22,11 +22,12 @@ const getlist = (req,res) => {
 const create = (req,res) =>{
     const {
         name,
+        description,
         parent_id,
         status
     } = req.body
-    var create_category = "INSERT INTO category(`name`, `parent_id`, `status`) VALUES (?,?,?)"
-    var data_category = [name,parent_id,status]
+    var create_category = "INSERT INTO category(`name`, `description`, `parent_id`, `status`) VALUES (?,?,?,?)"
+    var data_category = [name,description,parent_id,status]
     db.query(create_category,data_category,(error,row) => {
         if (error){
             res.json({
