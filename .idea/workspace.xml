@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="caec8c15-7ce1-4386-b46d-1ded5dd14ebf" name="Changes" comment="" />
+=======
+    <list default="true" id="caec8c15-7ce1-4386-b46d-1ded5dd14ebf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Node-API/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Node-API/src/Controller/customer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Controller/customer.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Node-API/src/Route/category.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Route/category.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Node-API/src/Route/customer.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Route/customer.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Node-API/src/Util/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Util/db.js" afterDir="false" />
+    </list>
+>>>>>>> 623d51098a228f24015f5ff436d46b7045665245
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,8 +27,11 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Node-API/Document_API/Employee-api.txt" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Node-API/index.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/Node-API/src/Controller/Employee.controller.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Node-API/src/Controller/customer.controller.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Node-API/src/Route/customer.route.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/web-client/src/App.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/web-client/src/PageDashboard/CategoryPage.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboard.js" root0="SKIP_INSPECTION" />
@@ -30,6 +45,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -48,8 +64,24 @@
     "nodejs.jest.jest_package": "C:/Users/Locus Boy ( iBOY )/Documents/Web_Wocommer/web-client/node_modules/react-scripts",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Snake Eye/Documents/Web_Wocommer&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;C:/Users/Locus Boy ( iBOY )/Documents/Web_Wocommer/web-client/node_modules/react-scripts&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> 623d51098a228f24015f5ff436d46b7045665245
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Snake Eye\Documents\Web_Wocommer\web-client\src" />
@@ -107,10 +139,17 @@
       <workItem from="1691411725859" duration="3007000" />
       <workItem from="1691506210145" duration="650000" />
       <workItem from="1691510565002" duration="3327000" />
+<<<<<<< HEAD
       <workItem from="1692290229731" duration="1303000" />
 =======
       <workItem from="1691081254845" duration="16000" />
 >>>>>>> Stashed changes
+=======
+      <workItem from="1692290229731" duration="1173000" />
+      <workItem from="1692321049353" duration="432000" />
+      <workItem from="1692335129088" duration="3945000" />
+      <workItem from="1692342022073" duration="1000" />
+>>>>>>> 623d51098a228f24015f5ff436d46b7045665245
     </task>
     <servers />
   </component>

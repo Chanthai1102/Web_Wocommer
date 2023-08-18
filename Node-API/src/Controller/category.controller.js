@@ -3,19 +3,10 @@ const db = require("../Util/db")
 const {json} = require("express");
 
 // function get list of category
-const getlist = (req,res) => {
-    var category_list = "SELECT * FROM category";
-    db.query(category_list, (error,row)=> {
-        if (error){
-            res.json({
-                error : true,
-                message : error
-            })
-        }else{
-            res.json({
-                list : row
-            })
-        }
+const getlist = async (req,res) => {
+    const list = await db.query("SELECT * FROM category")
+    res.json({
+        list: list
     })
 }
 

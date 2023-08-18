@@ -8,4 +8,4 @@ const category = (app) => {
     app.delete("/api/category/:id",ct.remove)
 }
 
-module.exports = category;
+module.exports = category

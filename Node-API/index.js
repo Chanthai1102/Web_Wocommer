@@ -17,8 +17,10 @@ app.get("/", (req,res)=>{
 })
 const employee = require("./src/Route/Employee.route")
 const category = require("./src/Route/category.route")
+const customer = require("./src/Route/customer.route")
 employee(app)
 category(app)
+customer(app)
 
 
 
