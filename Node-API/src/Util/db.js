@@ -4,7 +4,7 @@ const db = mysql.createConnection({
     host : "localhost",
     user : "root",
     password : "",
-    database : "db-node-react",
+    database : "db-node-api",
 })
 // promise wrapper to enable async await with MYSQL
 // https://medium.com/fullstackwebdev/a-guide-to-mysql-with-node-js-fc4f6abce33b
