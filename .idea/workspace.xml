@@ -36,7 +36,11 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+<<<<<<< Updated upstream
     "last_opened_file_path": "C:/Users/Snake Eye/Documents/Web_Wocommer",
+=======
+    "last_opened_file_path": "C:/Users/Snake Eye/Documents/search_treed",
+>>>>>>> Stashed changes
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,6 +96,7 @@
       <workItem from="1691046027699" duration="531000" />
       <workItem from="1691053885496" duration="1041000" />
       <workItem from="1691072180022" duration="7547000" />
+<<<<<<< Updated upstream
       <workItem from="1691118334937" duration="1217000" />
       <workItem from="1691201640747" duration="3800000" />
       <workItem from="1691285270613" duration="385000" />
@@ -103,6 +108,9 @@
       <workItem from="1691506210145" duration="650000" />
       <workItem from="1691510565002" duration="3327000" />
       <workItem from="1692290229731" duration="1303000" />
+=======
+      <workItem from="1691081254845" duration="16000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
