@@ -45,8 +45,7 @@ const getone = (req,res) => {
             })
         }else {
             res.json({
-                message: "Search Successfuly",
-                list: row
+                list : row
             })
         }
     })

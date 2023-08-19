@@ -1,9 +1,11 @@
-const db = require("../Util/db")
-const {json} = require("express")
+ const db = require("../Util/db")
+ const {json} = require("express")
+ const bcrypt = require("bcrypt")
+
 
 
 const getlist = (req,res) => {
-    var sql = "SELETE customer_id, firstname, lastname, gender, is_ative, create_at FROM customer"
+    var sql = "SELECT customer_id, firstname, lastname, gender, is_active, create_at FROM customer"
     db.query(sql,(error,row)=>{
         if (error){
             res.json({
@@ -36,7 +38,91 @@ const getOne = (req,res) => {
     })
 }
 
+const create = (req,res) => {
+    db.beginTransaction()
+
+    var {
+        username, // store telephone
+        password,
+        firstname,
+        lastname,
+        gender,
+        province_id,
+        address_des
+    } = req.body
+    // validate parameters
+
+    //Check Params is Null Or Not
+    if(username == null || username == ""){
+        message.username = "username required"
+    }
+    if(password == null || password == ""){
+        message.password = "password required"
+    }if(firstname == null || firstname == ""){
+        message.firstname = "firstname required"
+    }
+    if(lastname == null || lastname == ""){
+        message.lastname = "lastname required"
+    }
+    if(gender == null || gender == ""){
+        message.gender = "gender required"
+    }
+    if(province_id == null || province_id == ""){
+        message.province_id = "province_id required"
+    }
+    if(address_des == null || address_des == ""){
+        message.address_des = "address_des required"
+    }
+
+    //SQL Check User have or Not in database
+    var SqlCheckUser = "SELECT customer_id FROM customer WHERE username = ?"
+    db.query(SqlCheckUser,[username],(error_first,result)=>{
+        if (result.length > 0 ){
+            res.json({
+                error: true,
+                message : "Accout Already Create"
+            })
+            return false;
+        }else {
+            // bycript passwrod from client
+            password = bcrypt.hashSync(password, 10)
+            //Inser User to database customer
+            var SqlInsertDataUser = "INSERT INTO customer (firstname, lastname, gender, username, password) VALUES (?,?,?,?,?)"
+            var paramsUser = [firstname, lastname, gender, username, password]
+            db.query(SqlInsertDataUser,paramsUser,(errorUser,resultUser) => {
+                if (!errorUser){
+                    //Insert Address User to table customer_address
+                    var SqlInsertAddress = "INSERT INTO customer_address (customer_id, province_id, firstname, lastname, tel, address_des) VALUES (?,?,?,?,?,?)"
+                    var paramsInsertAdress = [resultUser.insertId, province_id, firstname, lastname, username, address_des]
+                    db.query(SqlInsertAddress,paramsInsertAdress,(errorAddress, resultAddress) => {
+                        if (!errorAddress){
+                            res.json({
+                                message: "Account Created",
+                                data: resultAddress
+                            })
+                            //db.commit is Correct insert Data all to table
+                            db.commit()
+                        }else {
+                            //db.rollback is false not insert data all to table
+                            db.rollback()
+                            res.json({
+                                error: true,
+                                message: errorAddress
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+
+
+
+}
+
 
 module.exports = {
-    getlist
+    getlist,
+    getOne,
+    create
 }
