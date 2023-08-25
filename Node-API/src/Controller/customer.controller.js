@@ -23,8 +23,8 @@ const getlist = (req,res) => {
 
 const getOne = (req,res) => {
     var id = req.params.id
-    var sql = "SELECT customer_id, fistname, lastname, gender, is_ative, create_at FROM customer WHERE customer_id = ?"
-    db.query(sql,(error,row)=>{
+    var sql = "SELECT customer_id, firstname, lastname, gender, is_active, create_at FROM customer WHERE customer_id = ?"
+    db.query(sql,[id],(error,row)=>{
         if (error){
             res.json({
                 message: error,
@@ -115,14 +115,53 @@ const create = (req,res) => {
             })
         }
     })
-
-
-
 }
+
+
+//Update Profile Customer
+ const update = (req,res) => {
+    //params for update customer
+    var {
+        customer_id,
+        firstname,
+        lastname,
+        gender
+    } = req.body;
+
+    //chech params
+    if (customer_id == null && customer_id == ""){
+        message.customer_id = "customer_id required"
+    }
+    if (firstname == null && firstname == ""){
+        message.firstname = "firstname required"
+    }
+    if (lastname == null && lastname == ""){
+        message.lastname = "lastname required"
+    }
+    if (gender == null && gender == ""){
+        message.gender = "gender required"
+    }
+    var SqlUpdate = "UPDATE customer SET firstname=?, lastname=?, gender=? WHERE customer_id = ?"
+     var params_Update = [firstname,lastname,gender,customer_id]
+     db.query(SqlUpdate,params_Update, (error,row) => {
+         if (error){
+             res.json({
+                 error : true,
+                 message: error
+             })
+         }else{
+             res.json({
+                 message: row.affectedRows ? "Update successfully!" : "Data not in system!",
+                 data : row
+             })
+         }
+     })
+ }
 
 
 module.exports = {
     getlist,
     getOne,
-    create
+    create,
+    update
 }
