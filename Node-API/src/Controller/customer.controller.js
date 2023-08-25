@@ -158,10 +158,62 @@ const create = (req,res) => {
      })
  }
 
+ const remove = (req,res) => {
+
+    var sqlUpdate = "Update customer SET is_active = 0 WHERE customer_id = ? "
+     db.query(sqlUpdate,[req.params.id], (error,row) => {
+         if (!error){
+             res.json({
+                 message: (row.affectedRows) ? "Delete successfully!" : "Data not in system",
+                 data : row
+             })
+         }else {
+             res.json({
+                 error: true,
+                 message: error
+             })
+         }
+     })
+
+ }
+
+ const listAddress = (req,res) => {
+    var {
+        customer_id
+    } = req.body
+
+     var sqlList = "SELECt * FROM customer_address WHERE customer_id = ? "
+     db.query(sqlList, [customer_id] , (error,row) => {
+         if (!error){
+             res.json({
+                 list : row
+             })
+         }
+     })
+ }
+ const GetOneAddress = (req,res) => {
+
+ }
+ const newAddress = (req,res) => {
+
+ }
+
+ const updateAddress = (req,res) => {
+
+ }
+ const removeAddress = (req,res) => {
+
+ }
 
 module.exports = {
     getlist,
     getOne,
     create,
-    update
+    update,
+    remove,
+    listAddress,
+    GetOneAddress,
+    newAddress,
+    updateAddress,
+    removeAddress,
 }
