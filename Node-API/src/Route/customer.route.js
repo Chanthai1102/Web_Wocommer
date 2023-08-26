@@ -15,7 +15,7 @@ const customer = (app) => {
     app.get("/api/customer-address/:id", ct.GetOneAddress)
     app.post("/api/customer-address", ct.newAddress)
     app.put("/api/customer-address", ct.updateAddress)
-    app.delete("/api/customer-address/:id", ct.removeAddress)
+    app.delete("/api/customer-address", ct.removeAddress)
 
 
 
