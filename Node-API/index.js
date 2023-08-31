@@ -18,9 +18,11 @@ app.get("/", (req,res)=>{
 const employee = require("./src/Route/Employee.route")
 const category = require("./src/Route/category.route")
 const customer = require("./src/Route/customer.route")
+const payment_method = require("./src/Route/payment_method.route")
 employee(app)
 category(app)
 customer(app)
+payment_method(app)
 
 
 
