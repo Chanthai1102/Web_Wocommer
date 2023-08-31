@@ -73,6 +73,13 @@ const create = (req,res) => {
     if(address_des == null || address_des == ""){
         message.address_des = "address_des required"
     }
+    if (Object.keys(message).length > 0){
+        res.json({
+            err: true,
+            message : message
+        })
+        return
+    }
 
     //SQL Check User have or Not in database
     var SqlCheckUser = "SELECT customer_id FROM customer WHERE username = ?"
@@ -141,6 +148,13 @@ const create = (req,res) => {
     if (gender == null && gender == ""){
         message.gender = "gender required"
     }
+     if (Object.keys(message).length > 0){
+         res.json({
+             err: true,
+             message : message
+         })
+         return
+     }
     var SqlUpdate = "UPDATE customer SET firstname=?, lastname=?, gender=? WHERE customer_id = ?"
      var params_Update = [firstname,lastname,gender,customer_id]
      db.query(SqlUpdate,params_Update, (error,row) => {

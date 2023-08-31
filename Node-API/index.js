@@ -20,11 +20,13 @@ const category = require("./src/Route/category.route")
 const customer = require("./src/Route/customer.route")
 const payment_method = require("./src/Route/payment_method.route")
 const order_status = require("./src/Route/order_status.route")
+const order = require("./src/Route/order.route")
 employee(app)
 category(app)
 customer(app)
 payment_method(app)
 order_status(app)
+order(app)
 
 
 
