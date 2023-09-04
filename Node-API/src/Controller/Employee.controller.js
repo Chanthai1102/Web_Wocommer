@@ -1,5 +1,6 @@
 // connection database
 const db = require("../Util/db")
+const { isEmptyOrNull } = require("../Util/service")
 
 // function getlist of employee
 const getlist = (req,res) => {
@@ -49,8 +50,8 @@ const create = (req,res) => {
         country
     } = req.body
     var message = {}
-    if(firstname == null || firstname == ""){
-        message.firstname = "firstname required"
+    if(isEmptyOrNull(firstname)){
+        message.firstname = "firstname required!"
     }
     if (lastname == null || lastname == ""){
         message.lastname = "lastname required"

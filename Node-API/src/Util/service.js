@@ -1,10 +1,11 @@
 //
-// const IsEmptyOrNull = (data) => {
-//     if (data == "" || data == null || data == undefined){
-//         return true
-//     }
-//     return false
-// }
+exports.isEmptyOrNull = (value) => {
+    if(value == "" || value == null || value == undefined ){
+        return true
+    }
+    return false
+}
+
 // https://stackoverflow.com/questions/5366849/convert-1-to-0001-in-javascript
 exports.invoiceNumber = (number) => {
     var str = "" + (number+1);

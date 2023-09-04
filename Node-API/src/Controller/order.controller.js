@@ -131,6 +131,43 @@ const create = async (req,res) => {
     }
 }
 
+const update = async (req,res) => {
+    const {
+        order_id,
+        customer_id,
+        order_status_id,
+        payement_methode_id,
+        invvoice_no,
+        order_total,
+        comment,
+        firstname,
+        lastname,
+        telelphone,
+        address_des,
+        status
+    } = req.body
+    var SqlUpdate = "UPDATE order SET " +
+        "customer_id = ?, order_status_id = ?, payment_methode_id = ?, invvoice_no = ?, order_total = ? , comment = ? ,"+
+        "firstname = ?, lastname = ?, telelphone = ?, address_des = ?, status = ? WHERE order_id = ?"
+    var paramsUpdate = [ order_id, customer_id, order_status_id, payement_methode_id, invvoice_no, order_total, comment, firstname, lastname, telelphone, address_des, status]
+    const data = await db.query(SqlUpdate,paramsUpdate)
+    res.json({
+        message: "Update Successfully",
+        data : data
+    })
+}
+
+const remove = async (req,res) => {
+    const {id} = req.params.id
+    var SqlDelete = "DELECT FROM order WHERE order_id = ?"
+    const data = await  db.query(SqlDelete,[id])
+    res.json({
+        message: "Remove Successfull",
+        data: data
+    })
+
+}
+
 module.exports = {
     getlist,
     getone,
