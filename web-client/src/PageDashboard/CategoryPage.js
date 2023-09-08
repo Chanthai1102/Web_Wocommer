@@ -1,82 +1,52 @@
-import { PencilIcon } from "@heroicons/react/24/solid";
+import axios from 'axios'
+import {useEffect, useState} from "react"
+// import { request } from "../Share/request"
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { ArrowDownTrayIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
     Card,
     CardHeader,
     Typography,
     Button,
-    CardBody,
     Chip,
+    CardBody,
     CardFooter,
-    Avatar,
     IconButton,
     Tooltip,
     Input,
 } from "@material-tailwind/react";
 
-const TABLE_HEAD = ["Transaction", "Amount", "Date", "Status", "Account", ""];
-
-const TABLE_ROWS = [
-    {
-        img: "/img/logos/logo-spotify.svg",
-        name: "Spotify",
-        amount: "$2,500",
-        date: "Wed 3:00pm",
-        status: "paid",
-        account: "visa",
-        accountNumber: "1234",
-        expiry: "06/2026",
-    },
-    {
-        img: "/img/logos/logo-amazon.svg",
-        name: "Amazon",
-        amount: "$5,000",
-        date: "Wed 1:00pm",
-        status: "paid",
-        account: "master-card",
-        accountNumber: "1234",
-        expiry: "06/2026",
-    },
-    {
-        img: "/img/logos/logo-pinterest.svg",
-        name: "Pinterest",
-        amount: "$3,400",
-        date: "Mon 7:40pm",
-        status: "pending",
-        account: "master-card",
-        accountNumber: "1234",
-        expiry: "06/2026",
-    },
-    {
-        img: "/img/logos/logo-google.svg",
-        name: "Google",
-        amount: "$1,000",
-        date: "Wed 5:00pm",
-        status: "paid",
-        account: "visa",
-        accountNumber: "1234",
-        expiry: "06/2026",
-    },
-    {
-        img: "/img/logos/logo-netflix.svg",
-        name: "netflix",
-        amount: "$14,000",
-        date: "Wed 3:30am",
-        status: "cancelled",
-        account: "visa",
-        accountNumber: "1234",
-        expiry: "06/2026",
-    },
-];
-
+const TABLE_HEAD = ["No", "Name", "Description", "Create",""];
 export function CategoryPage() {
+    const [list,setlist] = useState([])
+
+    useEffect(()=> {
+        getlist();
+    },[])
+
+    const server = "http://localhost:8081/api/"
+    const getlist = () => {
+        axios({
+            url: server + "category",
+            method: "GET",
+            data:{
+
+            }
+        }).then(res=>{
+            var data = res.data
+            setlist(data.list)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+
     return (
         <Card className="h-full w-full py-3 px-4">
             <CardHeader floated={false} shadow={false} className="rounded-none">
                 <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
                     <div>
-                        <Typography variant="h5" color="blue-gray">
-                            Recent Transactions
+                        <Typography variant="h5" color="blue-gray ">
+                            Category Product
                         </Typography>
                         <Typography color="gray" className="mt-1 font-normal">
                             These are details about the last transactions
@@ -102,7 +72,7 @@ export function CategoryPage() {
                                     <Typography
                                         variant="small"
                                         color="blue-gray"
-                                        className="font-normal leading-none opacity-70"
+                                        className="leading-none font-bold"
                                     >
                                         {head}
                                     </Typography>
@@ -111,28 +81,27 @@ export function CategoryPage() {
                         </tr>
                         </thead>
                         <tbody>
-                        {TABLE_ROWS.map(
-                            ({ img, name, amount, date, status, account, accountNumber, expiry }, index) => {
-                                const isLast = index === TABLE_ROWS.length - 1;
-                                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                        {list.map((item, index) => {
+                                const isLast = index === list.length - 1;
+                                const classes = isLast ? "p-2" : "p-2 border-b border-blue-gray-50";
 
                                 return (
-                                    <tr key={name}>
+                                    <tr >
                                         <td className={classes}>
                                             <div className="flex items-center gap-3">
                                                 <Typography variant="small" color="blue-gray" className="font-bold">
-                                                    {name}
+                                                    {index + 1}
                                                 </Typography>
                                             </div>
                                         </td>
                                         <td className={classes}>
                                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                                {amount}
+                                                {item.name}
                                             </Typography>
                                         </td>
                                         <td className={classes}>
                                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                                {date}
+                                                {item.description}
                                             </Typography>
                                         </td>
                                         <td className={classes}>
@@ -140,50 +109,23 @@ export function CategoryPage() {
                                                 <Chip
                                                     size="sm"
                                                     variant="ghost"
-                                                    value={status}
+                                                    value={item.status}
                                                     color={
-                                                        status === "paid" ? "green" : status === "pending" ? "amber" : "red"
+                                                        item.status === 1 ? "green" : item.status === 0 ? "amber" : "red"
                                                     }
                                                 />
                                             </div>
                                         </td>
+
                                         <td className={classes}>
-                                            <div className="flex items-center gap-3">
-                                                <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
-                                                    <Avatar
-                                                        src={
-                                                            account === "visa"
-                                                                ? "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png"
-                                                                : "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png"
-                                                        }
-                                                        size="sm"
-                                                        alt={account}
-                                                        variant="square"
-                                                        className="h-full w-full object-contain p-1"
-                                                    />
-                                                </div>
-                                                <div className="flex flex-col">
-                                                    <Typography
-                                                        variant="small"
-                                                        color="blue-gray"
-                                                        className="font-normal capitalize"
-                                                    >
-                                                        {account.split("-").join(" ")} {accountNumber}
-                                                    </Typography>
-                                                    <Typography
-                                                        variant="small"
-                                                        color="blue-gray"
-                                                        className="font-normal opacity-70"
-                                                    >
-                                                        {expiry}
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className={classes}>
-                                            <Tooltip content="Edit User">
+                                            <Tooltip content="Edit Category">
                                                 <IconButton variant="text" color="blue-gray">
                                                     <PencilIcon className="h-4 w-4" />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip content="Delete Category">
+                                                <IconButton variant="text" color="blue-gray">
+                                                    <TrashIcon className="h-4 w-4" />
                                                 </IconButton>
                                             </Tooltip>
                                         </td>
