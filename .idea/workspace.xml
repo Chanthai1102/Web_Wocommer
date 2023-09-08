@@ -9,12 +9,16 @@
 =======
     <list default="true" id="caec8c15-7ce1-4386-b46d-1ded5dd14ebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Node-API/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Node-API/src/Controller/customer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Controller/customer.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Node-API/src/Route/category.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Route/category.route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Node-API/src/Route/customer.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Route/customer.route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Node-API/src/Util/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Util/db.js" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
 >>>>>>> 623d51098a228f24015f5ff436d46b7045665245
     <option name="SHOW_DIALOG" value="false" />
@@ -27,11 +31,15 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Node-API/Document_API/Employee-api.txt" root0="SKIP_INSPECTION" />
+<<<<<<< Updated upstream
     <setting file="file://$PROJECT_DIR$/Node-API/index.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/Node-API/src/Controller/Employee.controller.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/Node-API/src/Controller/customer.controller.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/Node-API/src/Route/customer.route.js" root0="SKIP_INSPECTION" />
+=======
+    <setting file="file://$PROJECT_DIR$/Node-API/src/Controller/category.controller.js" root0="SKIP_INSPECTION" />
+>>>>>>> Stashed changes
     <setting file="file://$PROJECT_DIR$/web-client/src/App.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/web-client/src/PageDashboard/CategoryPage.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/web-client/src/component/layout/LayoutDashboard.js" root0="SKIP_INSPECTION" />
@@ -71,7 +79,11 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+<<<<<<< Updated upstream
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Snake Eye/Documents/Web_Wocommer&quot;,
+=======
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Locus Boy ( iBOY )/Documents/fun-with-javascript&quot;,
+>>>>>>> Stashed changes
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -131,6 +143,7 @@
 <<<<<<< Updated upstream
       <workItem from="1691118334937" duration="1217000" />
       <workItem from="1691201640747" duration="3800000" />
+<<<<<<< Updated upstream
       <workItem from="1691285270613" duration="385000" />
       <workItem from="1691314465500" duration="637000" />
       <workItem from="1691342445574" duration="1863000" />
@@ -150,6 +163,16 @@
       <workItem from="1692335129088" duration="3945000" />
       <workItem from="1692342022073" duration="1000" />
 >>>>>>> 623d51098a228f24015f5ff436d46b7045665245
+=======
+      <workItem from="1691464434915" duration="517000" />
+      <workItem from="1691485135196" duration="36000" />
+      <workItem from="1691547928603" duration="239000" />
+      <workItem from="1691550261232" duration="703000" />
+      <workItem from="1691738729805" duration="622000" />
+      <workItem from="1692011924364" duration="20000" />
+      <workItem from="1692234531594" duration="71000" />
+      <workItem from="1692263658438" duration="594000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

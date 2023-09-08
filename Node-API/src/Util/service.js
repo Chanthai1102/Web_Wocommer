@@ -1,4 +1,4 @@
-//
+exports.TOKEN_KEY = "LKJIJOPIEWRJ@#IU)(@U#)*@)#*$)LKJDSFSL:KJ12309802934909"
 exports.isEmptyOrNull = (value) => {
     if(value == "" || value == null || value == undefined ){
         return true
