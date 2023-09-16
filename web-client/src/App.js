@@ -1,14 +1,12 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {DashboardMain} from "./layout/DashboardMain";
 
-
-import LayoutDashboardMain from "./component/layout/LayoutDashboardMain"
-import {CategoryPage} from "./PageDashboard/CategoryPage"
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/dashboard" element={<LayoutDashboardMain/>}>
-              <Route path="category" element={<CategoryPage/>}/>
+          <Route path="/dashboard" element={<DashboardMain/>}>
+
           </Route>
       </Routes>
     </BrowserRouter>
