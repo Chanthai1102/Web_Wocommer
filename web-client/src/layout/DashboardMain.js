@@ -1,15 +1,15 @@
-import {SibarDashobard} from "./SibarDashobard";
+import {Sidebar} from "./Sidebar";
+import {Outlet} from "react-router-dom";
 
 
 export function DashboardMain(){
-    return(
-      <div className="w-full h-full">
-            <div className="w-1/6 h-full">
-                <SibarDashobard/>
-            </div>
-            <div className="w-5/6 h-full">
 
-            </div>
+    return(
+      <div className="flex">
+         <Sidebar/>
+         <div className="p-7 w-full h-screen">
+             <Outlet/>
+         </div>
       </div>
     );
 }
