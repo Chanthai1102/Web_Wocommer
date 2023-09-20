@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon, TrashIcon  } from "@heroicons/react/24/solid";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import {useState,useEffect} from "react";
 import axios from "axios";
 import {
@@ -18,6 +18,9 @@ import {
     DialogHeader,
     DialogBody,
     DialogFooter,
+    Textarea,
+    Select,
+    Option
 } from "@material-tailwind/react";
 
 const TABS = [
@@ -26,11 +29,11 @@ const TABS = [
         value: "all",
     },
     {
-        label: "Monitored",
+        label: "Active",
         value: "monitored",
     },
     {
-        label: "Unmonitored",
+        label: "Unactive",
         value: "unmonitored",
     },
 ];
@@ -42,6 +45,12 @@ export function CategoryPage() {
     const [list, setList] = useState([])
     const [open, setOpen] = useState(false);
     const [item, setItem] = useState(null)
+    const [form, setForm] = useState(false)
+    const [name , SetName] = useState("")
+    const [description , SetDescription] = useState("")
+    const [parent, SetParent] = useState("")
+    const [status, SetStatus] = useState("")
+
     useEffect(()=>{
         getlist();
     },[])
@@ -68,11 +77,29 @@ export function CategoryPage() {
         setOpen(false)
         setItem(null)
     }
+    const FormOpen = () => {
+        setForm(false)
+        setItem(null)
+        ClearForm()
+    }
+    const ClearForm = () => {
+        SetName("")
+        SetDescription("")
+        SetParent("")
+        SetStatus("")
+    }
+    const ClickEditOrCreate = (id) => {
+        setItem(id)
+        SetName(id.name)
+        SetDescription(id.description)
+        SetParent(id.parent)
+        SetStatus(id.status)
+        setForm(true)
 
+    }
     const onDelete = () =>{
         setOpen(false)
         var id = item.category_id
-        console.log(id)
         axios({
             url: "http://localhost:8081/api/category/" + id ,
             method: "DELETE",
@@ -95,12 +122,7 @@ export function CategoryPage() {
                         </Typography>
                     </div>
                     <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                        <Button variant="outlined" size="sm">
-                            view all
-                        </Button>
-                        <Button className="flex items-center gap-3" size="sm">
-                            <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Category
-                        </Button>
+                        <Button size="md" color="blue-gray" onClick={ClickEditOrCreate}>Create Category</Button>
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -190,7 +212,7 @@ export function CategoryPage() {
                                                 variant="ghost"
                                                 color={item.status ? "green" : "blue-gray"}
                                                 size="sm"
-                                                value={item.status ? "online" : "offline"}
+                                                value={item.status ? "Active" : "Unactive"}
                                                 icon={
                                                     <span className="mx-auto mt-1 block h-2 w-2 rounded-full bg-green-900 content-['']" />
                                                 }
@@ -199,7 +221,7 @@ export function CategoryPage() {
                                     </td>
                                     <td className={classes}>
                                         <div className="flex">
-                                            <PencilIcon className="h-4 w-4 mr-4 text-blue-800"  />
+                                            <PencilIcon className="h-4 w-4 mr-4 text-blue-800" onClick={() => ClickEditOrCreate(item)}   />
                                             <TrashIcon className="h-4 w-4 text-red-800" onClick={() => OnBtnDelete(item)} />
                                         </div>
                                     </td>
@@ -209,6 +231,52 @@ export function CategoryPage() {
                     )}
                     </tbody>
                 </table>
+                <Dialog
+                    open={form}
+                    handler={FormOpen}
+                    animate={{
+                        mount: { scale: 1, y: 0 },
+                        unmount: { scale: 0.9, y: -100 },
+                    }}
+                    size="xs"
+                >
+                    <DialogHeader className="">{item?.category_id == null ? "Create Category" : "Edit Category"}</DialogHeader>
+                    <DialogBody className="mx-auto w-full max-w-[32rem]">
+                        <form className="flex flex-col gap-4">
+                            <Input label="Name"
+                                   value={name}
+                            />
+                            <Textarea label="Description" value={description}/>
+                            <Select label="Select Parent" value={parent} >
+                                {list.map((item,index) => {
+                                    return(
+                                        <Option key={index} value={item.category_id}>{item.name}</Option>
+                                    )
+                                })}
+                            </Select>
+                            <Select label="Select Status" value={status == 1 ? "Active" : "Unactive"}>
+                                <Option>Action</Option>
+                                <Option>Unaction</Option>
+                            </Select>
+                        </form>
+                    </DialogBody>
+                    <DialogFooter>
+                        <Button
+                            variant="text"
+                            color="red"
+                            onClick={FormOpen}
+                            className="mr-1"
+                        >
+                            <span>Cancel</span>
+                        </Button>
+                        <Button variant="gradient" color="blue-gray" onClick={ClearForm} className="mr-1">
+                            <span>Clear</span>
+                        </Button>
+                        <Button variant="gradient" color="green" onClick={FormOpen}>
+                            <span>Confirm</span>
+                        </Button>
+                    </DialogFooter>
+                </Dialog>
                 <Dialog
                     open={open}
                     size = "xs"
