@@ -19,24 +19,34 @@ import {
     DialogBody,
     DialogFooter,
     Textarea,
-    Select,
-    Option
 } from "@material-tailwind/react";
 
 const TABS = [
     {
         label: "All",
-        value: "all",
+        value: "null",
     },
     {
         label: "Active",
-        value: "monitored",
+        value: "1",
     },
     {
         label: "Unactive",
-        value: "unmonitored",
+        value: "0",
     },
 ];
+
+const Status = [
+    {
+        value: '1',
+        label: 'Active'
+    },
+    {
+        value: '0',
+        label: 'Unactive'
+    }
+]
+
 
 const TABLE_HEAD = ["Name", "Description","Parent", "Status", "Action"];
 
@@ -69,6 +79,7 @@ export function CategoryPage() {
         })
     }
 
+
     const OnBtnDelete = (id) => {
         setItem(id)
         setOpen(true)
@@ -92,10 +103,9 @@ export function CategoryPage() {
         setItem(id)
         SetName(id.name)
         SetDescription(id.description)
-        SetParent(id.parent)
+        SetParent(id.parent_id)
         SetStatus(id.status)
         setForm(true)
-
     }
     const onDelete = () =>{
         setOpen(false)
@@ -109,6 +119,32 @@ export function CategoryPage() {
             console.log(err)
         })
     }
+
+    const OnSave = () => {
+        setForm(false)
+        var params = {
+            "name" : name,
+            "description" : description,
+            "parent_id" : parent,
+            "status" : status
+        }
+        var url = "http://localhost:8081/api/category"
+        var method = "POST"
+        if (item != null){
+            params.category_id = item.category_id
+            method = 'PUT'
+        }
+        axios({
+            url: url,
+            method: method,
+            data: params,
+        }).then(res=>{
+            getlist()
+            ClearForm()
+        }).catch(err=>{
+            console.log(err)
+        })
+     }
     return (
         <Card className="h-full w-full relative">
             <CardHeader floated={false} shadow={false} className="rounded">
@@ -129,7 +165,7 @@ export function CategoryPage() {
                     <Tabs value="all" className="w-full md:w-max">
                         <TabsHeader>
                             {TABS.map(({ label, value }) => (
-                                <Tab key={value} value={value}>
+                                <Tab key={value} value={value} >
                                     &nbsp;&nbsp;{label}&nbsp;&nbsp;
                                 </Tab>
                             ))}
@@ -143,25 +179,25 @@ export function CategoryPage() {
                     </div>
                 </div>
             </CardHeader>
-            <CardBody className="">
+            <CardBody >
                 <table className="mt-4 w-full min-w-max table-auto text-left">
                     <thead>
-                    <tr>
-                        {TABLE_HEAD.map((head) => (
-                            <th
-                                key={head}
-                                className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                            >
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="font-normal leading-none opacity-70"
+                        <tr>
+                            {TABLE_HEAD.map((head) => (
+                                <th
+                                    key={head}
+                                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                                 >
-                                    {head}
-                                </Typography>
-                            </th>
-                        ))}
-                    </tr>
+                                    <Typography
+                                        variant="small"
+                                        color="blue-gray"
+                                        className="font-normal leading-none opacity-70"
+                                    >
+                                        {head}
+                                    </Typography>
+                                </th>
+                            ))}
+                        </tr>
                     </thead>
                     <tbody>
                     {list.map(
@@ -203,7 +239,7 @@ export function CategoryPage() {
                                             color="blue-gray"
                                             className="font-normal"
                                         >
-                                            {item.parent_id ? item.parent_id : "No Parent"}
+                                            {item.parent_name ? item.parent_name : "No Parent"}
                                         </Typography>
                                     </td>
                                     <td className={classes}>
@@ -244,20 +280,32 @@ export function CategoryPage() {
                     <DialogBody className="mx-auto w-full max-w-[32rem]">
                         <form className="flex flex-col gap-4">
                             <Input label="Name"
-                                   value={name}
+                                   value={name || ""}
+                                   onChange={(e) => {SetName(e.target.value)}}
                             />
-                            <Textarea label="Description" value={description}/>
-                            <Select label="Select Parent" value={parent} >
+                            <Textarea label="Description" value={description} onChange={(e) => {SetDescription(e.target.value)}}/>
+                            <select
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                value={parent}
+                                onChange={(e) => SetParent(e.target.value)}
+                            >
                                 {list.map((item,index) => {
                                     return(
-                                        <Option key={index} value={item.category_id}>{item.name}</Option>
+                                        <option key={index} value={item.category_id} >{item.name}</option>
                                     )
                                 })}
-                            </Select>
-                            <Select label="Select Status" value={status == 1 ? "Active" : "Unactive"}>
-                                <Option>Action</Option>
-                                <Option>Unaction</Option>
-                            </Select>
+                            </select>
+                            <select
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    value={status}
+                                    onChange={(e) => SetStatus(e.target.value)}
+                            >
+                                {Status.map((item,index) => {
+                                    return(
+                                        <option key={index} value={item.value} >{item.label}</option>
+                                    )
+                                })}
+                            </select>
                         </form>
                     </DialogBody>
                     <DialogFooter>
@@ -272,7 +320,7 @@ export function CategoryPage() {
                         <Button variant="gradient" color="blue-gray" onClick={ClearForm} className="mr-1">
                             <span>Clear</span>
                         </Button>
-                        <Button variant="gradient" color="green" onClick={FormOpen}>
+                        <Button variant="gradient" color="green" onClick={OnSave}>
                             <span>Confirm</span>
                         </Button>
                     </DialogFooter>

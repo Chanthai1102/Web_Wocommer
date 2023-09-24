@@ -4,9 +4,10 @@ const {json} = require("express");
 
 // function get list of category
 const getlist = async (req,res) => {
-    const list = await db.query("SELECT * FROM category")
+    const list = await db.query("SELECT c.*, c1.name as parent_name FROM category c left join category c1 on c.parent_id = c1.category_id ")
     res.json({
-        list: list
+        list: list,
+        query: req.query
     })
 }
 
@@ -56,11 +57,12 @@ const update = (req,res) => {
     const {
         category_id,
         name,
+        description,
         parent_id,
         status
     } = req.body
-    var update_category = "UPDATE category SET name = ?, parent_id = ?, status =? WHERE category_id =?"
-    var data_category = [name,parent_id,status,category_id]
+    var update_category = "UPDATE category SET name = ?, description = ?, parent_id = ?, status =? WHERE category_id =?"
+    var data_category = [name,description,parent_id,status,category_id]
     db.query(update_category,data_category,(error,row) => {
         if (error){
             res.json({
