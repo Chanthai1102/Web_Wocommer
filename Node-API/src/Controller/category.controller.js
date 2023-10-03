@@ -2,15 +2,60 @@
 const db = require("../Util/db")
 const {json} = require("express");
 
-// function get list of category
-const getlist = async (req,res) => {
-    const list = await db.query("SELECT c.*, c1.name as parent_name FROM category c left join category c1 on c.parent_id = c1.category_id ")
-    res.json({
-        list: list,
-        query: req.query
-    })
-}
+const getlist = async (req, res) => {
+    const { status, page, search } = req.query;
+    const limit = 11;
+    const offset = (page - 1) * limit;
 
+    let selectListQuery = `
+        SELECT c.*, c1.name AS parent_name 
+        FROM category c 
+        LEFT JOIN category c1 ON c.parent_id = c1.category_id
+    `;
+    let Total = "SELECT COUNT(category_id) as total FROM category";
+    const queryParams = [];
+    if (search && search !== 'null') {
+        Total += ' WHERE name LIKE ?'
+        selectListQuery += `WHERE c.name LIKE ?`;
+        queryParams.push(`%${search}%`);
+
+        if (status && status !== 'null'){
+            Total += ' AND status = ?'
+            selectListQuery += ' AND c.status = ?';
+            queryParams.push(status);
+        }
+    } else if (status && status !== 'null') {
+        Total += ' WHERE status = ?'
+        selectListQuery += `WHERE c.status = ?`;
+        queryParams.push(status);
+    }
+
+    selectListQuery += ' ORDER BY c.category_id DESC LIMIT ? OFFSET ?';
+    queryParams.push(limit, offset);
+    try {
+        const category = await db.query('SELECT * FROM Category');
+        const list = await db.query(selectListQuery, queryParams);
+        const total = await db.query(Total, queryParams);
+
+        if (list.length === 0) {
+            return res.json({
+                message: 'No results found',
+                TotalRecord: total,
+                category: category,
+                query: req.query
+            });
+        }
+
+        res.json({
+            list: list,
+            TotalRecord: total,
+            category: category,
+            query: req.query
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
 const create = (req,res) =>{
     const {
         name,

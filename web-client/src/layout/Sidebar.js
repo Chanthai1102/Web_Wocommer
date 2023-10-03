@@ -1,4 +1,5 @@
 import {useState} from "react";
+import React from "react";
 import {
     BsArrowLeftShort,
     BsChevronDown,
@@ -45,7 +46,7 @@ export function Sidebar(){
             <ul className="pt-2">
                 {Menus.map((menu,index) => {
                     return(
-                        <>
+                        <React.Fragment key={index} >
                             <li key={index} className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${menu.spacing ? "mt-9" : "mt-2"}`}>
                              <span className="text-2xl block float-left">
                                  { menu.icon ? menu.icon : <MdDashboard/>}
@@ -60,7 +61,7 @@ export function Sidebar(){
                             </li>
 
                             {menu.submenu && submenuOpen && open &&(
-                                <ul>
+                                <ul key={`submenu-${index}`}>
                                     {menu.submenuItems.map((submenuItem, index) => {
                                         return(
                                             <li key={index} className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5  hover:bg-light-white rounded-md">
@@ -70,7 +71,7 @@ export function Sidebar(){
                                     })}
                                 </ul>
                             )}
-                        </>
+                        </React.Fragment>
                     )
                 })}
             </ul>

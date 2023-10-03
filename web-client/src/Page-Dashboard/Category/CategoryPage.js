@@ -55,30 +55,44 @@ export function CategoryPage() {
     const [list, setList] = useState([])
     const [open, setOpen] = useState(false);
     const [item, setItem] = useState(null)
+    const [loading,Setloading] = useState(false)
     const [form, setForm] = useState(false)
     const [name , SetName] = useState("")
     const [description , SetDescription] = useState("")
     const [parent, SetParent] = useState("")
-    const [status, SetStatus] = useState("")
-
+    const [status, SetStatus] = useState('1')
+    const [statuslist, SetStatuslist] = useState('null')
+    const [page, Setpage] = useState(1)
+    const [Record, SetRecord] = useState(0)
+    const [category, SetCategory] = useState([])
+    const [search, SetSearch] = useState('')
     useEffect(()=>{
-        getlist();
-    },[])
-    const getlist = () =>{
+        const delayDebounceFn = setTimeout(() => {
+            getlist(statuslist,page,search);  // Pass the search query to the getlist function
+        }, 300); // Delay to avoid rapid API calls on every keystroke
+        return () => clearTimeout(delayDebounceFn);
+    },[statuslist,page,search])
+    const getlist = (parameter,page,search) => {
+        Setloading(true)
+        var param = "?status=" + parameter+"&page="+ page + "&search=" + search;  // Corrected query parameter construction
         axios({
-            url: "http://localhost:8081/api/category",
+            url: "http://localhost:8081/api/category" + param,
             method: "GET",
-            data : {
-
-            }
-        }).then(res=>{
+            data: {}
+        }).then(res => {
+            setTimeout(() => {
+                Setloading(false)
+            }, 200)
             var data = res.data
             setList(data.list)
-        }).catch(err=>{
-            console.log(err)
-        })
-    }
-
+            SetCategory(data.category)
+            if (data.TotalRecord.length > 0) {
+                SetRecord(data.TotalRecord[0].total);
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+    };
 
     const OnBtnDelete = (id) => {
         setItem(id)
@@ -104,7 +118,7 @@ export function CategoryPage() {
         SetName(id.name)
         SetDescription(id.description)
         SetParent(id.parent_id)
-        SetStatus(id.status)
+        SetStatus(id.status || "1" )
         setForm(true)
     }
     const onDelete = () =>{
@@ -114,39 +128,51 @@ export function CategoryPage() {
             url: "http://localhost:8081/api/category/" + id ,
             method: "DELETE",
         }).then(res=>{
-            getlist()
+            getlist(statuslist,1,search)
         }).catch(err=>{
             console.log(err)
         })
     }
 
     const OnSave = () => {
-        setForm(false)
-        var params = {
-            "name" : name,
-            "description" : description,
-            "parent_id" : parent,
-            "status" : status
-        }
-        var url = "http://localhost:8081/api/category"
-        var method = "POST"
-        if (item != null){
-            params.category_id = item.category_id
-            method = 'PUT'
+        setForm(false);
+        const params = {
+            name: name,
+            description: description,
+            parent_id: parent,
+            status: status
+        };
+        const url = "http://localhost:8081/api/category";
+        let method = "POST";
+
+        if (item && item.category_id) {
+            params.category_id = item.category_id;
+            method = 'PUT';
         }
         axios({
             url: url,
             method: method,
             data: params,
-        }).then(res=>{
-            getlist()
-            ClearForm()
-        }).catch(err=>{
-            console.log(err)
-        })
-     }
+        }).then(res => {
+            getlist(statuslist, 1,search);
+            ClearForm();
+        }).catch(err => {
+            console.error('Error:', err);
+        });
+    };
+    let TotalPage = Math.ceil(Record/11)
+    const handleNextPage = () => {
+         if (page < TotalPage){
+             Setpage(page +1 )
+         }
+    };
+    const handlePreviousPage = () => {
+        if (page > 1){
+            Setpage(page -1)
+        }
+    }
     return (
-        <Card className="h-full w-full relative">
+        <Card className="h-full w-full relative" loading={loading}>
             <CardHeader floated={false} shadow={false} className="rounded">
                 <div className="mb-8 flex items-center justify-between gap-8">
                     <div>
@@ -165,7 +191,12 @@ export function CategoryPage() {
                     <Tabs value="all" className="w-full md:w-max">
                         <TabsHeader>
                             {TABS.map(({ label, value }) => (
-                                <Tab key={value} value={value} >
+                                <Tab key={value} value={value}
+                                     onClick={() => {
+                                         SetStatuslist(value);
+                                         Setpage(1);
+                                     }}
+                                >
                                     &nbsp;&nbsp;{label}&nbsp;&nbsp;
                                 </Tab>
                             ))}
@@ -175,6 +206,8 @@ export function CategoryPage() {
                         <Input
                             label="Search"
                             icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                            value={search}
+                            onChange={(e) => SetSearch(e.target.value)}
                         />
                     </div>
                 </div>
@@ -200,8 +233,7 @@ export function CategoryPage() {
                         </tr>
                     </thead>
                     <tbody>
-                    {list.map(
-                        (item, index) => {
+                    {list && list.map((item, index) => {
                             const isLast = index === list.length - 1;
                             const classes = isLast
                                 ? "p-3"
@@ -289,7 +321,8 @@ export function CategoryPage() {
                                 value={parent}
                                 onChange={(e) => SetParent(e.target.value)}
                             >
-                                {list.map((item,index) => {
+                                <option value={null}>No Parent</option>
+                                { category && category.map((item,index) => {
                                     return(
                                         <option key={index} value={item.category_id} >{item.name}</option>
                                     )
@@ -353,15 +386,15 @@ export function CategoryPage() {
                     </DialogFooter>
                 </Dialog>
             </CardBody>
-            <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4 bottom-0 absolute w-full">
+            <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-2 bottom-0 absolute w-full">
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                    Page 1 of 10
+                    Page {page} of {TotalPage}
                 </Typography>
                 <div className="flex gap-2">
-                    <Button variant="outlined" size="sm">
+                    <Button variant="outlined" size="sm" onClick={handlePreviousPage} className={`${page === 1 ? "hidden" : ""}`}>
                         Previous
                     </Button>
-                    <Button variant="outlined" size="sm">
+                    <Button variant="outlined" size="sm" onClick={handleNextPage} className={`${page === TotalPage ? "hidden" : ""}`} >
                         Next
                     </Button>
                 </div>
