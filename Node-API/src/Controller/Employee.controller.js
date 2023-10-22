@@ -39,7 +39,7 @@ const getone = (req,res) => {
 }
 
 // function create member of employee
-const create = (req,res) => {
+const create = async (req,res) => {
     const {
         username,
         password,
@@ -73,22 +73,31 @@ const create = (req,res) => {
         })
         return
     }
-    let passwords = bcrypt.hashSync(password, 10);
-    var create_employee = "INSERT INTO employee (`username`,`password`,`firstname`, `lastname`, `tel`, `email`, `base_salary`,`country`) VALUES (?,?,?,?,?,?,?,?)"
-    var parameter_data = [username,passwords,firstname,lastname,tel,email,base_salary,country]
-    db.query(create_employee,parameter_data,(err,row)=>{
-        if (err){
-            res.json({
-                err:true,
-                message: err
-            })
-        }else{
-            res.json({
-                message: "create successfully",
-                data: row
-            })
-        }
-    })
+    var user = await db.query("SELECT * FROM employee WHERE username = ?" , [username])
+    if (user.length){
+        res.json({
+            error: true,
+            message : "Accout Already Create"
+        })
+        return false;
+    }else {
+        let passwords = bcrypt.hashSync(password, 10);
+        var create_employee = "INSERT INTO employee (`username`,`password`,`firstname`, `lastname`, `tel`, `email`, `base_salary`,`country`) VALUES (?,?,?,?,?,?,?,?)"
+        var parameter_data = [username,passwords,firstname,lastname,tel,email,base_salary,country]
+        db.query(create_employee,parameter_data,(err,row)=>{
+            if (err){
+                res.json({
+                    err:true,
+                    message: err
+                })
+            }else{
+                res.json({
+                    message: "create successfully",
+                    data: row
+                })
+            }
+        })
+    }
 }
 
 // function update member of employee
