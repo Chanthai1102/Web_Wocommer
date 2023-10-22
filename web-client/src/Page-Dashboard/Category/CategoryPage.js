@@ -55,7 +55,6 @@ export function CategoryPage() {
     const [list, setList] = useState([])
     const [open, setOpen] = useState(false);
     const [item, setItem] = useState(null)
-    const [loading,Setloading] = useState(false)
     const [form, setForm] = useState(false)
     const [name , SetName] = useState("")
     const [description , SetDescription] = useState("")
@@ -73,16 +72,12 @@ export function CategoryPage() {
         return () => clearTimeout(delayDebounceFn);
     },[statuslist,page,search])
     const getlist = (parameter,page,search) => {
-        Setloading(true)
         var param = "?status=" + parameter+"&page="+ page + "&search=" + search;  // Corrected query parameter construction
         axios({
             url: "http://localhost:8081/api/category" + param,
             method: "GET",
             data: {}
         }).then(res => {
-            setTimeout(() => {
-                Setloading(false)
-            }, 200)
             var data = res.data
             setList(data.list)
             SetCategory(data.category)
@@ -172,15 +167,12 @@ export function CategoryPage() {
         }
     }
     return (
-        <Card className="h-full w-full relative" loading={loading}>
+        <Card className="h-full w-full relative">
             <CardHeader floated={false} shadow={false} className="rounded">
                 <div className="mb-8 flex items-center justify-between gap-8">
                     <div>
                         <Typography variant="h5" color="blue-gray">
                             Category list
-                        </Typography>
-                        <Typography color="gray" className="mt-1 font-normal">
-                            See information about all Category
                         </Typography>
                     </div>
                     <div className="flex shrink-0 flex-col gap-2 sm:flex-row">

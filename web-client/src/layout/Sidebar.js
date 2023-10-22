@@ -13,29 +13,34 @@ import {
     AiOutlineBarChart,
     AiOutlineFileText, AiOutlineSetting,
 } from "react-icons/ai";
-
+import {useNavigate} from "react-router-dom";
 
 export function Sidebar(){
     const [open, setOpen] = useState(true)
     const [submenuOpen, setSubmenuOpen] = useState(false)
+    const navigate = useNavigate()
     const Menus = [
-        { title: "Dashboard"},
-        { title: "Pages", icon: <AiOutlineFileText/>},
-        { title: "Category", spacing: true, icon: <BiCategoryAlt/>},
+        { title: "Dashboard",route: "/dashboard"},
+        { title: "Pages", icon: <AiOutlineFileText/>,route: "/dashboard/page"},
+        { title: "Category", spacing: true, icon: <BiCategoryAlt/>, route: "/dashboard/category"},
         {
             title: "Projects",
             icon: <BsReverseLayoutTextSidebarReverse/>,
+            route: "/dashboard/project",
             submenu: true,
             submenuItems: [
-                {title: "Submenu 1"},
-                {title: "submenu 2"},
-                {title: "submenu 3"}
+                {title: "Submenu 1",route: "/dashboard/project",},
+                {title: "submenu 2",route: "/dashboard/project",},
+                {title: "submenu 3",route: "/dashboard/project",}
             ]
         },
-        {title: "Analytics", icon: <AiOutlineBarChart/>},
-        {title: "Profile",spacing:true, icon: <BsPerson/>},
-        {title: "Setting", icon: <AiOutlineSetting/>}
+        {title: "Analytics", icon: <AiOutlineBarChart/>,route: "/dashboard/project",},
+        {title: "Profile",spacing:true, icon: <BsPerson/>,route: "/dashboard/project",},
+        {title: "Setting", icon: <AiOutlineSetting/>,route: "/dashboard/project",}
     ];
+    const onChangeMenu = (item) => {
+        navigate(item)
+    }
     return(
         <div className={`bg-dark-purple h-screen p-5 pt-8 ${open ? "w-72" : "w-20"} duration-300 relative`}>
             <BsArrowLeftShort className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer ${!open && "rotate-180"} `} onClick={() => setOpen(!open) }/>
@@ -47,7 +52,7 @@ export function Sidebar(){
                 {Menus.map((menu,index) => {
                     return(
                         <React.Fragment key={index} >
-                            <li key={index} className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${menu.spacing ? "mt-9" : "mt-2"}`}>
+                            <li key={index} className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${menu.spacing ? "mt-9" : "mt-2"}`} onClick={() => onChangeMenu(menu.route)}>
                              <span className="text-2xl block float-left">
                                  { menu.icon ? menu.icon : <MdDashboard/>}
                              </span>

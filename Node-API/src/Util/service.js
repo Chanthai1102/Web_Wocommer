@@ -1,4 +1,4 @@
-
+exports.TOKEN_KEY = "LSDIF@#$%$RDSFG%W$%YFG%ERYDFVHSR%^YW$RFGHWE%RYW$E"
 exports.isEmptyOrNull = (value) => {
     if(value == "" || value == null || value == undefined ){
         return true

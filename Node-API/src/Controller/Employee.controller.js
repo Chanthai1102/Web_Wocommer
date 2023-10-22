@@ -1,6 +1,7 @@
 // connection database
 const db = require("../Util/db")
 const { isEmptyOrNull } = require("../Util/service")
+const bcrypt = require("bcrypt");
 
 // function getlist of employee
 const getlist = (req,res) => {
@@ -40,16 +41,22 @@ const getone = (req,res) => {
 // function create member of employee
 const create = (req,res) => {
     const {
+        username,
+        password,
         firstname,
         lastname,
         tel,
         email,
         base_salary,
-        address,
-        province,
         country
     } = req.body
     var message = {}
+    if(isEmptyOrNull(username)){
+        message.username = "firstname required!"
+    }
+    if(isEmptyOrNull(password)){
+        message.password = "firstname required!"
+    }
     if(isEmptyOrNull(firstname)){
         message.firstname = "firstname required!"
     }
@@ -66,8 +73,9 @@ const create = (req,res) => {
         })
         return
     }
-    var create_employee = "INSERT INTO employee (`firstname`, `lastname`, `tel`, `email`, `base_salary`, `address`, `province`, `country`) VALUES (?,?,?,?,?,?,?,?)"
-    var parameter_data = [firstname,lastname,tel,email,base_salary,address,province,country]
+    let passwords = bcrypt.hashSync(password, 10);
+    var create_employee = "INSERT INTO employee (`username`,`password`,`firstname`, `lastname`, `tel`, `email`, `base_salary`,`country`) VALUES (?,?,?,?,?,?,?,?)"
+    var parameter_data = [username,passwords,firstname,lastname,tel,email,base_salary,country]
     db.query(create_employee,parameter_data,(err,row)=>{
         if (err){
             res.json({

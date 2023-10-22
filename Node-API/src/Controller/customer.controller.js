@@ -1,6 +1,8 @@
  const db = require("../Util/db")
  const {json} = require("express")
  const bcrypt = require("bcrypt")
+ const {isEmptyOrNull, TOKEN_KEY} = require("../Util/service");
+ const jwt = require('jsonwebtoken')
 
 
 
@@ -124,6 +126,51 @@ const create = (req,res) => {
     })
 }
 
+const login = async (req,res) => {
+    var {
+        username,
+        password
+    } = req.body
+    var message = {};
+    if (isEmptyOrNull(username)){ message.username = "Please fill in username" }
+    if (isEmptyOrNull(password)){ message.password = "Please fill in password" }
+    if (Object.keys(message).length>0){
+        res.json({
+            error: true,
+            message: message
+        })
+        return
+    }
+    var user = await db.query("SELECT * FROM customer WHERE username = ?", [username]);
+    if (user.length){
+        var passDB = user[0].password
+        var isCorrect = bcrypt.compareSync(password,passDB)
+        if (isCorrect){
+            var user =  user[0]
+            delete user.password;
+            var obj = {
+                user: user,
+                role: [],
+                token: ""
+            }
+            var Access_token = jwt.sign({data:{...obj}},TOKEN_KEY)
+            res.json({
+                ...obj,
+                Access_token: Access_token
+            })
+        }else {
+            res.json({
+                message: "Password Incorrect",
+                error: true
+            })
+        }
+    }else {
+        res.json({
+            message: "Account does't exist! Please Go To Register",
+            error: true
+        })
+    }
+}
 
 //Update Profile Customer
  const update = (req,res) => {
@@ -350,6 +397,7 @@ module.exports = {
     getlist,
     getOne,
     create,
+    login,
     update,
     remove,
     listAddress,

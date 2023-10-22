@@ -8,6 +8,7 @@ const customer = (app) => {
     app.get("/api/customer", ct.getlist)
     app.get("/api/customer/:id", ct.getOne)
     app.post("/api/customer", ct.create)
+    app.post("/api/customer/auth/login",ct.login)
     app.put("/api/customer", ct.update)
     app.delete("/api/customer/:id", ct.remove)
 
