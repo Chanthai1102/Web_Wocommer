@@ -38,6 +38,23 @@ const getone = (req,res) => {
     })
 }
 
+const checkusername = async (req,res) => {
+    const requestedUsername = req.params.username;
+    const query = 'SELECT username FROM employee WHERE username = ?'
+    db.query(query,[requestedUsername], (error,results) => {
+        if (error) {
+            console.error('Error checking username availability:', error);
+            res.status(500).json({ error: 'An error occurred while checking username availability' });
+        } else {
+            // If the query returns any rows, the username is already in use
+            const isUsernameAvailable = results.length === 0;
+
+            // Respond with a JSON object indicating whether the username is available
+            res.json({ available: isUsernameAvailable });
+        }
+    })
+}
+
 // function create member of employee
 const create = async (req,res) => {
     const {
@@ -155,5 +172,6 @@ module.exports = {
     getone,
     create,
     update,
-    remove
+    remove,
+    checkusername
 }

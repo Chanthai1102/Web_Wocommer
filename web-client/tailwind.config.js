@@ -7,7 +7,11 @@ module.exports = withMT({
       colors: {
         "dark-purple" : "#081A51",
         'light-white' : 'rgba(255,255,255,0.18)'
-      }
+      },
+      borderColor: {
+        'red-500': '#f00',
+        'green-500': '#0f0',
+      },
     },
   },
   plugins: [],
